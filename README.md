@@ -9,8 +9,15 @@ Some features:
 
 * Import via command line from the SD card folder
 * Import photos only from today or yesterday
+* Include a uid in the file name to track exports later
+* Multiple uid generation methods
+  * secrets.token_urlsafe
+  * hashlib.md5
+  * hashlib.sha256
+  * uuid.uuid4()
 * Rename files to avoid duplicate file names  
   * I have two of the same model cameras and there is no way to rename the file prefix in camera. 
+  * Will rename to `serial_uid_originalname.ext`
 * Convert to DNG
 * Create a batch file to convert videos with ffmpeg
 * Convert videos using subprocess
