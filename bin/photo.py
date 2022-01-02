@@ -27,6 +27,19 @@ class Photo:
     def renaming(self):
         naming_structure = f"{self.exif_serial}_{self.uid}_{self.filenametype}"
         return(naming_structure)
+    def eliminate_escaped_whitespace(self, input_string):
+        output = input_string
+        output = output.replace("\x00", "")
+        #output = output.replace("", "")
+    def conversion_attempt(self, data):
+        if type(data) in [bytes, str]:
+            try:
+                output = data.decode("utf8")
+            except:
+                output = self.eliminate_escaped_whitespace(data)
+            return(output)
+        else:
+            return(data)
     def load_exif_data(self):
         #https://stackoverflow.com/questions/4764932/in-python-how-do-i-read-the-exif-data-for-an-image
         exif_dict = self.exif_methods[self.filetype]()
@@ -52,16 +65,3 @@ class Photo:
         pass
     def exif_nef(self):
         pass
-    def eliminate_escaped_whitespace(self, input_string):
-        output = input_string
-        output = output.replace("\x00", "")
-        #output = output.replace("", "")
-    def conversion_attempt(self, data):
-        if type(data) in [bytes, str]:
-            try:
-                output = data.decode("utf8")
-            except:
-                output = self.eliminate_escaped_whitespace(data)
-            return(output)
-        else:
-            return(data)
