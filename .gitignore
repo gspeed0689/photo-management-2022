@@ -1,3 +1,4 @@
 *.ipynb
 bin/config.py
 ipynbs/*
+sample_photos/*
