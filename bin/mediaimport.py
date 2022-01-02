@@ -9,13 +9,15 @@ import glob
 import shutil
 
 class Media_Import:
-    def __init__(self, source_folder, output_folder="default", importdate="today"):
+    def __init__(self, source_folder, output_folder="default", importdate="today", video_conversion=True, conversion_method="batch"):
         self.source_folder = source_folder
         self.import_date = self.import_date(importdate)
         self.output_folder = self.determine_output_folder(output_folder)
         self.staging_folder = self.determine_staging_folder()
         self.import_list = self.list_input_media()
         self.staging_media_list_evaluation()
+        self.conversion = video_conversion
+        self.conversion_method = conversion_method
         pass
     def import_date(self, passed_value):
         if config.timezone == "local":
@@ -100,14 +102,15 @@ class Media_Import:
                 new_cmd = [x.replace("{import_location}", video.filepath).replace("{output_location}", out_filename_base) for x in cmd]
                 all_commands.append(new_cmd)
             pass
-        pass
+        self.video_command_list = all_commands
     def execute_video_conversion(self):
+        cmd_list = self.video_command_list
         if self.conversion == True:
             if self.conversion_method == "batch":
                 batch_file_location = self.output_folder + os.sep + "process_video.bat"
                 with open(batch_file_location, "w") as f:
-                    f.write("")
-                pass
+                    for cmd in cmd_list:
+                        f.write(" ".join(cmd))
             elif self.conversion_method == "subproc":
                 pass
         pass
