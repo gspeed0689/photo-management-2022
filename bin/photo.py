@@ -1,6 +1,6 @@
 import config
 from mediaUID import MediaUID
-import PIL
+from PIL import Image, ExifTags
 import os
 
 
@@ -35,7 +35,11 @@ class Photo:
         self.exif_model = exif_dict['Model']
         pass
     def exif_jpg(self):
-        pass
+        load_image = Image.open(self.filepath)
+        exif_data = load_image.getexif()
+        exif_dict = {ExifTags.TAGS[key]: self.conversion_attempt(value) for (key, value) in exif_data.items()}
+        return(exif_dict)
+    #The strategy for most of these might be to create tiny JPEGs and then read the exif from that. Let something else read the metadata
     def exif_cr2(self):
         pass
     def exif_cr3(self):
@@ -48,3 +52,16 @@ class Photo:
         pass
     def exif_nef(self):
         pass
+    def eliminate_escaped_whitespace(self, input_string):
+        output = input_string
+        output = output.replace("\x00", "")
+        #output = output.replace("", "")
+    def conversion_attempt(self, data):
+        if type(data) in [bytes, str]:
+            try:
+                output = data.decode("utf8")
+            except:
+                output = self.eliminate_escaped_whitespace(data)
+            return(output)
+        else:
+            return(data)
