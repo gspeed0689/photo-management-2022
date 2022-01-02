@@ -11,6 +11,7 @@ import argparse
 import secrets
 import uuid
 import hashlib
+import argparse
 
 class photo_import:
     def __init__(self):
@@ -59,3 +60,12 @@ class photo:
         return(uid)
     def load_exif_data(self):
         pass
+
+def arguments():
+    pass
+
+def main():
+    pass
+
+if __name__ == "__main__":
+    pass
