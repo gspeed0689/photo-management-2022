@@ -15,14 +15,35 @@ import argparse
 import multiprocessing
 import subprocess
 
-class photo_import:
+class Media_Import:
     def __init__(self, source_folder, output_folder="default"):
         self.source_folder = source_folder
-        self.output_folder = output_folder
+        if output_folder == "default":
+            self.output_folder = self.default_output_folder()
+        else:
+            self.output_folder = output_folder
+        self.staging_folder = self.staging_folder()
+        self.import_list = self.list_input_photos()
         pass
-    
+    def default_output_folder(self):
+        use_time = time.time()
+        fpath0 = config.photo_library + os.sep + time.strftime(config.folder_date_ym, use_time)
+        fpath1 = fpath0 + os.sep + time.strftime(config.folder_date_ymd)
+        if os.path.exists(fpath0) == False:
+            os.mkdir(fpath0)
+            if os.path.exists(fpath1) == False:
+                os.mkdir(fpath1)
+        return(fpath1)
+    def staging_folder(self):
+        staging_folder = self.output_folder + os.sep + "staging"
+        if os.path.exists(staging_folder) == False:
+            os.mkdir(staging_folder)
+        return(staging_folder)
+    def list_input_photos(self):
+        input_list = self.
+        pass
 
-class photo:
+class Photo:
     def __init__(self, file_path):
         self.filepath = file_path
         self.filename = file_path.split(os.sep)[-1]
@@ -66,18 +87,17 @@ class photo:
     def load_exif_data(self):
         pass
 
-class video:
-    def __init__(self, file_path, conversion=True, conversion_method="batch"):
+class Video:
+    def __init__(self, file_path):
         self.filepath = file_path
         self.filename = file_path.split(os.sep)[-1]
         self.filetype = self.filename.split(".")[-1]
-        self.conversion = conversion
-        self.conversion_method = conversion_method
         pass
     def conversion_control(self):
         affinity_prefix = ["start", "/affinity", self.affinity_bin()]
         if self.conversion == True:
             if self.conversion_method == "batch":
+                
                 pass
             elif self.conversion_method == "subproc":
                 pass
@@ -90,6 +110,13 @@ class video:
         bin_str = f"0b{active_1s}{inactive_0s}"
         hex_str = str(hex(int(bin_str, 2)))[2:]
         return(hex_str)
+    def affinity_prefixing(self, prefix, cmd):
+        if config.affinity_awareness == True:
+            return_list = prefix + cmd
+        else:
+            return_list = cmd
+        return(return_list)
+
 
 def arguments():
     pass
