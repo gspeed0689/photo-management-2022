@@ -5,6 +5,7 @@ import os
 import time
 import datetime
 import multiprocessing
+import subprocess
 import glob
 import shutil
 
@@ -112,5 +113,25 @@ class Media_Import:
                     for cmd in cmd_list:
                         f.write(" ".join(cmd))
             elif self.conversion_method == "subproc":
-                pass
-        pass
+                self.video_commands_subprocess()
+    def video_commands_subprocess(self, cmd_list):
+        process = True
+        c = 0
+        cmd_max = len(cmd_list)
+        while process == True:
+            if self.windows_check_process_running("ffmpeg.exe") == True:
+                time.sleep(config.conversion_sleep)
+            else:
+                subprocess.run(cmd_list[c])
+                c += 1
+                if c > cmd_max:
+                    process = False
+    def windows_check_process_running(self, process_name):
+        #https://stackoverflow.com/questions/7787120/check-if-a-process-is-running-or-not-on-windows
+        call = 'TASKLIST', '/FI', 'imagename eq %s' % process_name
+        # use buildin check_output right away
+        output = subprocess.check_output(call).decode()
+        # check in last line for process name
+        last_line = output.strip().split('\r\n')[-1]
+        # because Fail message could be translated
+        return last_line.lower().startswith(process_name.lower())
