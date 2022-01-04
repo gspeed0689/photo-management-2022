@@ -62,7 +62,8 @@ class Media_Import:
                 if len(glob_results) != 0:
                     media[file_type] = glob_results
                     media["all"] += glob_results
-        self.source_media = media
+        valid_date_media = [x for x in media if str(datetime.datetime(*time.localtime(os.path.getctime(x))[:6])).split(" ")[0] == str(self.import_date).split(" ")[0]]
+        self.source_media = valid_date_media
     def move_media_staging(self):
         for infile in self.source_media["all"]:
             filename = infile.split(os.sep[-1])

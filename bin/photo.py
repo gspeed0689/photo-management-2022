@@ -47,6 +47,9 @@ class Photo:
         self.exif_brand = exif_dict['Make']
         self.exif_model = exif_dict['Model']
         pass
+    def get_os_shot_time(self):
+        #https://stackoverflow.com/questions/237079/how-to-get-file-creation-modification-date-times
+        image_time = os.path.getctime(self.filepath)
     def exif_jpg(self):
         load_image = Image.open(self.filepath)
         exif_data = load_image.getexif()
