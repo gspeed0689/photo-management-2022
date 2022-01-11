@@ -15,6 +15,7 @@ affinity_reserve_cores = 4
 #video conversion
 ffmpeg_location = r""
 ffmpeg_video = {
+    #Keys of this dict are suffixes to the output location file names. 
     "libx264": [ffmpeg_location, "-i", "{import_location}", "-c:v", "libx264", "-qscale:v", "2", "{output_location}.mp4"],
     "libx265": [ffmpeg_location, "-i", "{import_location}", "-c:v", "libx265", "-qscale:v", "2", "{output_location}.mkv"],
     "30p_an_libx264": [ffmpeg_location, "-r", "30", "-i", "{import_location}", "-c:v", "libx264", "-qscale:v", "2", "{output_location}.mp4"],
