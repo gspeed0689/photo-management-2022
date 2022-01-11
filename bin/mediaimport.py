@@ -22,9 +22,9 @@ class Media_Import:
         pass
     def import_date(self, passed_value):
         if config.timezone == "local":
-            today = datetime.datetime(time.localtime()[:6])
+            today = self.time2datetime(time.localtime())
         elif config.timezone == "utc":
-            today = datetime.datetime(time.gmtime()[:6])
+            today = self.time2datetime(time.gmtime())
         if passed_value in ["today", "yesterday"]:
             if passed_value == "today":
                 return_value = today
@@ -33,6 +33,9 @@ class Media_Import:
                 yesterday = today - yesterday_timedelta
                 return_value = yesterday
         return(return_value)
+    def time2datetime(self, time_obj):
+        datetime_obj = datetime.datetime(*time_obj[:6])
+        return(datetime_obj)
     def determine_output_folder(self, passed_value):
         if passed_value == "default":
             str_YM = config.folder_date_ym.replace("%Y", self.import_date.year).replace("%m", self.import_date.month).replace("%d", self.import_date.day)
@@ -62,7 +65,7 @@ class Media_Import:
                 if len(glob_results) != 0:
                     media[file_type] = glob_results
                     media["all"] += glob_results
-        valid_date_media = [x for x in media if str(datetime.datetime(*time.localtime(os.path.getctime(x))[:6])).split(" ")[0] == str(self.import_date).split(" ")[0]]
+        valid_date_media = [x for x in media if str(self.time2datetime(time.localtime(os.path.getctime(x)))).split(" ")[0] == str(self.import_date).split(" ")[0]]
         self.source_media = valid_date_media
     def move_media_staging(self):
         for infile in self.source_media["all"]:
