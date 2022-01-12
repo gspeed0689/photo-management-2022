@@ -3,3 +3,4 @@ python/config.py
 ipynbs/*
 sample_photos/*
 *.pyc
+bin/config.py
