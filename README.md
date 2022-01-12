@@ -8,7 +8,7 @@ This is a personal project to automate the import, conversion, and organization 
 Some features:
 
 * Import via command line from the SD card folder
-* Import photos only from today or yesterday
+* Import photos only from today, yesterday, or an ISO 8601 date `YYYY-MM-DD`
 * Include a uid in the file name to track exports later
 * Multiple uid generation methods
   * secrets.token_urlsafe

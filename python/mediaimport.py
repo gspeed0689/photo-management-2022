@@ -11,7 +11,7 @@ import shutil
 import platform
 
 class Media_Import:
-    def __init__(self, source_folder, output_folder="default", importdate="today", video_conversion=True, conversion_method="batch"):
+    def __init__(self, source_folder, output_folder="default", importdate="today", video_conversion=True, conversion_method="batch", affinity=False):
         self.source_folder = source_folder
         self.import_date = self.import_date(importdate)
         self.output_folder = self.determine_output_folder(output_folder)
