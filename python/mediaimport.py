@@ -9,7 +9,7 @@ import subprocess
 import glob
 import shutil
 import platform
-###############################################################################
+
 class Media_Import:
     def __init__(self, source_folder, output_folder="default", 
                  importdate="today", 
