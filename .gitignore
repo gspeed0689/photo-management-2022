@@ -1,5 +1,5 @@
 *.ipynb
-bin/config.py
+python/config.py
 ipynbs/*
 sample_photos/*
 *.pyc
