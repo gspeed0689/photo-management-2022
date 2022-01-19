@@ -85,7 +85,7 @@ class Photo:
         """Loads EXIF data into self variables.
         """
         #https://stackoverflow.com/questions/4764932/in-python-how-do-i-read-the-exif-data-for-an-image
-        exif_dict = self.exif_methods[self.filetype]()
+        exif_dict = self.exif_methods[self.filetype](self.filepath)
         self.exif_serial = exif_dict['BodySerialNumber']
         self.exif_brand = exif_dict['Make']
         self.exif_model = exif_dict['Model']

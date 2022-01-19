@@ -1,5 +1,6 @@
 import config
 import argparse
+import os
 
 def arg_handler():
     parser = argparse.ArgumentParser(description="Photo import management tool")
@@ -24,3 +25,7 @@ def arg_handler():
                         default=config.affinity_reserve_cores)
     args = parser.parse_args()
     return(args)
+
+def main():
+    args = arg_handler()
+    cwd = os.getcwd()
