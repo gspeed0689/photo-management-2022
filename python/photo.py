@@ -2,6 +2,8 @@ import config
 from mediaUID import MediaUID
 from PIL import Image, ExifTags
 import os
+import time
+import datetime
 
 
 class Photo:
@@ -24,6 +26,14 @@ class Photo:
     def photo_uid(self):
         uid = MediaUID(self.filepath).uid
         return(uid)
+    def time2datetime(self, time_obj):
+        """Creates a datetime.datetime object from a time object. 
+
+        Args:
+            time_obj (time object): Like time.localtime() or time.gmtime()
+        """
+        datetime_obj = datetime.datetime(*time_obj[:6])
+        return(datetime_obj)
     def renaming(self):
         naming_structure = f"{self.exif_serial}_{self.uid}_{self.filenametype}"
         return(naming_structure)
