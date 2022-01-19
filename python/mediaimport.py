@@ -24,7 +24,6 @@ class Media_Import:
         self.staging_media_list_evaluation()
         self.conversion = video_conversion
         self.conversion_method = conversion_method
-        pass
     def import_date(self, passed_value):
         """Sets the import date of the images to import from the source media
 
@@ -157,7 +156,6 @@ class Media_Import:
         affinity_prefix = ["start", "/affinity", self.affinity_bin()]
         cmd_list = self.video_commands()
         cmd_list = [self.affinity_prefixing(affinity_prefix, x) for x in cmd_list]
-        pass
     def video_commands(self):
         """This function will run through each video through each generic 
             command in the config file.  
@@ -169,7 +167,6 @@ class Media_Import:
             for cmd in config.ffmpeg_video.keys():
                 new_cmd = [x.replace("{import_location}", video.filepath).replace("{output_location}", out_filename_base) for x in cmd]
                 all_commands.append(new_cmd)
-            pass
         self.video_command_list = all_commands
     def execute_video_conversion(self):
         """'Executes' each of the video commands for an import process. 
